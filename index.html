@@ -37,22 +37,15 @@
 }
 
 .aurora-text {
-background: linear-gradient(90deg, var(–aurora-1), var(–aurora-2), var(–aurora-3), var(–aurora-4), var(–aurora-1));
-background-size: 300% 100%;
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-animation: aurora-shift 5s ease infinite;
+color: #7fffd4;
 }
 
 .aurora-border {
-border-image: linear-gradient(90deg, var(–aurora-1), var(–aurora-2), var(–aurora-3), var(–aurora-4)) 1;
+border-color: #7fffd4;
 }
 
 .aurora-line {
-background: linear-gradient(90deg, transparent, var(–aurora-1), var(–aurora-2), var(–aurora-3), transparent);
-background-size: 200% 100%;
-animation: aurora-shift 4s ease infinite;
+background: linear-gradient(90deg, transparent, #7fffd4, #b088f9, #f472b6, transparent);
 }
 
 - { box-sizing: border-box; margin: 0; padding: 0; }
@@ -289,15 +282,8 @@ margin: 0 auto;
 
 .section-label {
 font-size: 0.7rem;
-letter-spacing: 0.15em;
-text-transform: uppercase;
+letter-spacing: 0.12em;
 color: #7fffd4;
-background: linear-gradient(90deg, var(–aurora-1), var(–aurora-2), var(–aurora-3));
-background-size: 200% 100%;
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-animation: aurora-shift 4s ease infinite;
 display: inline-block;
 }
 
@@ -312,15 +298,12 @@ font-family: ‘Shippori Mincho’, serif;
 pointer-events: none;
 line-height: 1;
 user-select: none;
-background: linear-gradient(135deg, var(–aurora-1), var(–aurora-2));
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-opacity: 0.06;
+color: #7fffd4;
+opacity: 0.05;
 }
 
 .glow-text {
-filter: drop-shadow(0 0 20px rgba(127,255,212,0.25)) drop-shadow(0 0 40px rgba(176,136,249,0.15));
+text-shadow: 0 0 30px rgba(127,255,212,0.4), 0 0 60px rgba(176,136,249,0.2);
 }
 </style>
 
