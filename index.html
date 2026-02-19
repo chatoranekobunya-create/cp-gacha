@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>推しカプ シチュエーション錬成炉</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;900&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #06080f;
+    --paper: #e8eef5;
+    --ash: #1a1f2e;
+    --dust: #5a6070;
+    --aurora-1: #7fffd4;   /* aquamarine */
+    --aurora-2: #b088f9;   /* lavender */
+    --aurora-3: #f472b6;   /* rose */
+    --aurora-4: #38bdf8;   /* sky */
+    --mist: #d8e3e8;
+  }
+
+@keyframes aurora-shift {
+0%   { background-position: 0% 50%; }
+50%  { background-position: 100% 50%; }
+100% { background-position: 0% 50%; }
+}
+
+.aurora-text {
+background: linear-gradient(90deg, var(–aurora-1), var(–aurora-2), var(–aurora-3), var(–aurora-4), var(–aurora-1));
+background-size: 300% 100%;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+animation: aurora-shift 5s ease infinite;
+}
+
+.aurora-border {
+border-image: linear-gradient(90deg, var(–aurora-1), var(–aurora-2), var(–aurora-3), var(–aurora-4)) 1;
+}
+
+.aurora-line {
+background: linear-gradient(90deg, transparent, var(–aurora-1), var(–aurora-2), var(–aurora-3), transparent);
+background-size: 200% 100%;
+animation: aurora-shift 4s ease infinite;
+}
+
+- { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+font-family: ‘Noto Serif JP’, serif;
+background: var(–ink);
+color: var(–paper);
+min-height: 100vh;
+overflow-x: hidden;
+}
+
+/* Noise texture overlay */
+body::before {
+content: ‘’;
+position: fixed;
+inset: 0;
+background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘noise’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23noise)’ opacity=‘0.04’/%3E%3C/svg%3E”);
+pointer-events: none;
+z-index: 0;
+opacity: 0.6;
+}
+
+.serif { font-family: ‘Shippori Mincho’, serif; }
+
+/* Header */
+.header-deco {
+position: relative;
+border-top: none;
+border-bottom: none;
+}
+.header-deco-line {
+height: 1px;
+background: linear-gradient(90deg, transparent, var(–aurora-1), var(–aurora-2), var(–aurora-3), var(–aurora-4), transparent);
+background-size: 200% 100%;
+animation: aurora-shift 4s ease infinite;
+}
+
+/* Select styling */
+.custom-select {
+appearance: none;
+background: rgba(255,255,255,0.03);
+border: 1px solid rgba(127,255,212,0.2);
+color: var(–paper);
+font-family: ‘Noto Serif JP’, serif;
+font-size: 0.9rem;
+padding: 0.7rem 2.5rem 0.7rem 1rem;
+width: 100%;
+cursor: pointer;
+transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘12’ viewBox=‘0 0 12 12’%3E%3Cpath fill=’%237fffd4’ d=‘M6 8L1 3h10z’/%3E%3C/svg%3E”);
+background-repeat: no-repeat;
+background-position: right 1rem center;
+}
+.custom-select:focus {
+outline: none;
+border-color: rgba(176,136,249,0.6);
+box-shadow: 0 0 12px rgba(176,136,249,0.15);
+background-color: rgba(176,136,249,0.04);
+}
+.custom-select option { background: #10121e; color: var(–paper); }
+
+/* Radio buttons */
+.attr-radio { display: none; }
+.attr-label {
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 0.75rem 1.5rem;
+border: 1px solid rgba(127,255,212,0.2);
+cursor: pointer;
+transition: all 0.3s;
+font-size: 0.95rem;
+letter-spacing: 0.05em;
+position: relative;
+overflow: hidden;
+}
+.attr-radio:checked + .attr-label {
+background: linear-gradient(135deg, rgba(127,255,212,0.15), rgba(176,136,249,0.15), rgba(244,114,182,0.15));
+border-color: transparent;
+font-weight: 600;
+box-shadow: inset 0 0 0 1px rgba(127,255,212,0.4), 0 0 20px rgba(127,255,212,0.1);
+color: #7fffd4;
+}
+.attr-label:hover {
+border-color: rgba(127,255,212,0.4);
+background: rgba(127,255,212,0.04);
+}
+
+/* Main button */
+.gacha-btn {
+background: transparent;
+border: none;
+color: var(–ink);
+font-family: ‘Shippori Mincho’, serif;
+font-size: 1.1rem;
+font-weight: 700;
+letter-spacing: 0.2em;
+padding: 1rem 2rem;
+width: 100%;
+cursor: pointer;
+transition: all 0.3s;
+position: relative;
+overflow: hidden;
+}
+.gacha-btn::before {
+content: ‘’;
+position: absolute;
+inset: 0;
+background: linear-gradient(90deg, var(–aurora-1), var(–aurora-2), var(–aurora-3), var(–aurora-4), var(–aurora-1));
+background-size: 300% 100%;
+animation: aurora-shift 3s ease infinite;
+z-index: 0;
+transition: opacity 0.3s;
+}
+.gacha-btn::after {
+content: ‘’;
+position: absolute;
+inset: 0;
+background: linear-gradient(90deg, var(–aurora-1), var(–aurora-2), var(–aurora-3), var(–aurora-4), var(–aurora-1));
+background-size: 300% 100%;
+animation: aurora-shift 3s ease infinite;
+filter: blur(12px);
+opacity: 0;
+z-index: -1;
+transition: opacity 0.3s;
+}
+.gacha-btn:hover::after { opacity: 0.6; }
+.gacha-btn span { position: relative; z-index: 1; color: #06080f; }
+.gacha-btn:active { transform: scale(0.98); }
+
+/* Loading animation */
+@keyframes shimmer {
+0%, 100% { opacity: 0.3; }
+50% { opacity: 1; }
+}
+@keyframes rotateGlyph {
+from { transform: rotate(0deg); }
+to { transform: rotate(360deg); }
+}
+@keyframes fadeInUp {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+@keyframes drawLine {
+from { transform: scaleX(0); }
+to { transform: scaleX(1); }
+}
+
+.loading-ring {
+border: 1px solid rgba(127,255,212,0.15);
+border-top-color: var(–aurora-1);
+border-right-color: var(–aurora-2);
+border-radius: 50%;
+animation: rotateGlyph 1s linear infinite;
+box-shadow: 0 0 20px rgba(127,255,212,0.15);
+}
+
+.result-appear { animation: fadeInUp 0.6s ease forwards; }
+.line-appear {
+transform-origin: left;
+animation: drawLine 0.8s ease forwards;
+}
+
+/* Result card */
+.result-card {
+background: rgba(255,255,255,0.02);
+border: 1px solid rgba(127,255,212,0.15);
+position: relative;
+}
+.result-card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0;
+width: 40px; height: 40px;
+border-top: 2px solid var(–aurora-1);
+border-left: 2px solid var(–aurora-1);
+}
+.result-card::after {
+content: ‘’;
+position: absolute;
+bottom: 0; right: 0;
+width: 40px; height: 40px;
+border-bottom: 2px solid var(–aurora-3);
+border-right: 2px solid var(–aurora-3);
+}
+
+/* Amazon card */
+.amazon-card {
+background: rgba(127,255,212,0.03);
+border: 1px solid rgba(127,255,212,0.15);
+transition: all 0.25s;
+text-decoration: none;
+display: block;
+}
+.amazon-card:hover {
+background: rgba(176,136,249,0.07);
+border-color: rgba(176,136,249,0.35);
+transform: translateY(-2px);
+box-shadow: 0 8px 24px rgba(176,136,249,0.1);
+}
+
+/* X share button */
+.x-btn {
+background: transparent;
+border: 1px solid rgba(255,255,255,0.15);
+color: var(–paper);
+font-family: ‘Noto Serif JP’, serif;
+font-size: 0.85rem;
+padding: 0.6rem 1.2rem;
+cursor: pointer;
+transition: all 0.2s;
+letter-spacing: 0.05em;
+}
+.x-btn:hover {
+border-color: rgba(127,255,212,0.4);
+background: rgba(127,255,212,0.05);
+color: var(–aurora-1);
+}
+
+.divider {
+height: 1px;
+background: linear-gradient(to right, transparent, var(–aurora-1), var(–aurora-2), var(–aurora-3), transparent);
+background-size: 200% 100%;
+animation: aurora-shift 5s ease infinite;
+margin: 0 auto;
+}
+
+.section-label {
+font-size: 0.65rem;
+letter-spacing: 0.3em;
+text-transform: uppercase;
+background: linear-gradient(90deg, var(–aurora-1), var(–aurora-2), var(–aurora-3));
+background-size: 200% 100%;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+animation: aurora-shift 4s ease infinite;
+}
+
+#result-section { display: none; }
+#loading-section { display: none; }
+
+.kanji-deco {
+font-size: 8rem;
+font-weight: 900;
+position: absolute;
+font-family: ‘Shippori Mincho’, serif;
+pointer-events: none;
+line-height: 1;
+user-select: none;
+background: linear-gradient(135deg, var(–aurora-1), var(–aurora-2));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+opacity: 0.06;
+}
+
+.glow-text {
+filter: drop-shadow(0 0 20px rgba(127,255,212,0.25)) drop-shadow(0 0 40px rgba(176,136,249,0.15));
+}
+</style>
+
+</head>
+<body>
+<div class="relative z-10 max-w-2xl mx-auto px-4 py-8 min-h-screen flex flex-col">
+
+  <!-- Header -->
+
+  <header class="mb-10 text-center relative overflow-hidden">
+    <div class="kanji-deco" style="top:-1rem;right:-2rem;opacity:0.05;">縁</div>
+    <p class="section-label mb-3">Situation Generator for Doujin Creators</p>
+    <div class="header-deco py-3 mb-4">
+      <div class="header-deco-line mb-3"></div>
+      <h1 class="serif text-3xl sm:text-4xl font-bold tracking-widest glow-text aurora-text">
+        推しカプ<br class="sm:hidden">錬成炉
+      </h1>
+      <div class="header-deco-line mt-3"></div>
+    </div>
+    <p class="text-xs tracking-widest" style="color:var(--dust)">あなたの「好き」を、物語に変える</p>
+  </header>
+
+  <!-- Form -->
+
+  <section class="mb-8 space-y-6">
+    <p class="section-label">— 設定 —</p>
+
+```
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+  <!-- 世界観 -->
+  <div>
+    <label class="block text-xs tracking-widest mb-2" style="color:var(--dust)">◇ 世界観</label>
+    <select id="world" class="custom-select">
+      <option value="現代">現代</option>
+      <option value="ファンタジー">ファンタジー</option>
+      <option value="SF">SF</option>
+      <option value="学園">学園</option>
+      <option value="RANDOM">完全ランダム（おまかせ）</option>
+    </select>
+  </div>
+  <!-- 攻め -->
+  <div>
+    <label class="block text-xs tracking-widest mb-2" style="color:var(--dust)">◇ 攻めの性格</label>
+    <select id="seme" class="custom-select">
+      <option value="ワンコ">ワンコ</option>
+      <option value="冷酷">冷酷</option>
+      <option value="スパダリ">スパダリ</option>
+      <option value="執着">執着</option>
+      <option value="不器用">不器用</option>
+      <option value="RANDOM">完全ランダム</option>
+    </select>
+  </div>
+  <!-- 受け -->
+  <div>
+    <label class="block text-xs tracking-widest mb-2" style="color:var(--dust)">◇ 受けの性格</label>
+    <select id="uke" class="custom-select">
+      <option value="強気">強気</option>
+      <option value="健気">健気</option>
+      <option value="無自覚">無自覚</option>
+      <option value="クーデレ">クーデレ</option>
+      <option value="素直">素直</option>
+      <option value="RANDOM">完全ランダム</option>
+    </select>
+  </div>
+</div>
+
+<!-- 属性 -->
+<div>
+  <p class="text-xs tracking-widest mb-3" style="color:var(--dust)">◇ あなたの属性（必須）</p>
+  <div class="grid grid-cols-2 gap-3">
+    <div>
+      <input type="radio" name="attr" id="attr-illust" value="illust" class="attr-radio" checked>
+      <label for="attr-illust" class="attr-label serif">🎨 絵描き</label>
+    </div>
+    <div>
+      <input type="radio" name="attr" id="attr-writer" value="writer" class="attr-radio">
+      <label for="attr-writer" class="attr-label serif">✍️ 字書き</label>
+    </div>
+  </div>
+</div>
+
+<!-- Button -->
+<button class="gacha-btn" onclick="runGacha()">
+  <span>この条件でシチュエーションを錬成する</span>
+</button>
+```
+
+  </section>
+
+  <!-- Loading -->
+
+  <section id="loading-section" class="flex flex-col items-center justify-center py-16 gap-6">
+    <div class="loading-ring w-16 h-16"></div>
+    <p class="serif text-sm tracking-widest section-label" id="loading-text">縁を紡いでいる…</p>
+  </section>
+
+  <!-- Result -->
+
+  <section id="result-section" class="space-y-6">
+    <div class="divider w-full"></div>
+
+```
+<!-- Situation Card -->
+<div class="result-card p-8 relative result-appear">
+  <p class="section-label mb-4">— 錬成されたシチュエーション —</p>
+  <p id="result-tags" class="aurora-text text-xs tracking-widest mb-4"></p>
+  <p id="result-text" class="serif text-base leading-loose" style="line-height:2.2em"></p>
+</div>
+
+<!-- Share button -->
+<div class="text-right">
+  <button class="x-btn" onclick="shareToX()">🐦 Xでシェアする</button>
+</div>
+
+<div class="divider w-full"></div>
+
+<!-- Amazon section -->
+<div id="amazon-section" class="space-y-4 result-appear" style="animation-delay:0.3s">
+  <p class="section-label" id="amazon-heading"></p>
+  <div id="amazon-links" class="grid grid-cols-1 gap-3"></div>
+  <p class="text-xs" style="color:var(--dust)">※ Amazon アソシエイトリンクを含みます</p>
+</div>
+```
+
+  </section>
+
+  <!-- Footer -->
+
+  <footer class="mt-auto pt-12 text-center">
+    <div class="divider w-24 mb-6"></div>
+    <p class="text-xs tracking-widest" style="color:var(--dust)">推しカプ錬成炉 ◆ for Doujin Creators</p>
+  </footer>
+
+</div>
+
+<script>
+const WORLDS = ['現代', 'ファンタジー', 'SF', '学園'];
+const SEME_TYPES = ['ワンコ', '冷酷', 'スパダリ', '執着', '不器用'];
+const UKE_TYPES = ['強気', '健気', '無自覚', 'クーデレ', '素直'];
+
+// Situation database
+const SITUATIONS = {
+  '現代': {
+    'ワンコ×強気': ['攻めが受けの家の前で雨に濡れて立っている。強引に中に入れると「行くとこないんで」と笑う、そんな話', '受けがバイトで憔悴している姿を見つけた攻めが、何も言わずにコンビニのおにぎりを差し出す、そんな話', '攻めが受けの愚痴をずっとニコニコしながら聞いていたら、受けが「……馬鹿なの？」と呟いて泣き出す、そんな話'],
+    'ワンコ×健気': ['受けがこっそり攻めの好物を覚えていたことに、攻めが気づいてしまう、そんな話', '攻めがずっと受けのことを見ていたのを受けは知らなかった、でもある夜受けが「気づいてたよ」と言う、そんな話'],
+    'ワンコ×無自覚': ['受けが「友達として」好きだと言うたびに、攻めの心が少しずつ削られていく、そんな話', '受けが無意識に攻めへの好意を全力でまき散らしているせいで攻めが限界を迎える、そんな話'],
+    'ワンコ×クーデレ': ['初めて受けが攻めに名前を呼び捨てにしてくれた夜の話', '攻めが熱を出したら受けが黙って世話をしてくれた、でも帰り際に「……心配したんだからな」とだけ言う、そんな話'],
+    'ワンコ×素直': ['素直な受けに「好き」と言われ続けた攻めが、ある日その言葉の本当の重さに気づく、そんな話', '誰にでも優しい受けの「特別」になりたくて攻めが必死になる、そんな話'],
+    '冷酷×強気': ['「お前には無理だ」と言った攻めに、受けが結果で黙らせる、そんな話', '二人の間の壁が一枚ずつ剥がれていく、最後に残ったのは雨の夜と「ありがとう」の一言だけ、そんな話'],
+    '冷酷×健気': ['攻めが「なぜそこまでする」と問うと、受けが「あなたに笑ってほしいから」と答える、そんな話', '冷たい言葉しかかけられないのに、受けがそれでも傍にいることを選ぶ理由を攻めが知る、そんな話'],
+    '冷酷×無自覚': ['受けの無自覚な優しさが、鉄壁を誇った攻めの唯一の隙間に刺さった夜の話', '攻めが初めて人のために「嫌だ」と思った瞬間の話'],
+    '冷酷×クーデレ': ['クーデレな受けが初めて素直になった夜、攻めは何も言わずにその頭を引き寄せる、そんな話', '「別に、あなただけには弱みを見せてもいい」と受けが言い捨てる夜の話'],
+    '冷酷×素直': ['攻めの「どうせ本気じゃない」という言葉に、受けが静かに「本気だよ」と返す、そんな話', '素直な受けの「好きです」が、攻めの人生で初めて信じられる言葉になった話'],
+    'スパダリ×強気': ['何でもできる攻めの唯一「できないこと」が、受けに勝つことだという話', '受けが初めて弱音を吐いた夜、攻めはずっと黙って隣にいた、そんな話'],
+    'スパダリ×健気': ['攻めが初めて誰かに「守られた」と感じた相手が、小さな受けだったという話', '全部できる攻めが「これだけは教えてほしい」と頭を下げる、そんな話'],
+    'スパダリ×無自覚': ['受けが無自覚に攻めの全てを独占しているのに、周りだけが気づいている話', '「なんであなたにだけこうなるんだろう」と攻めが初めて自分に問いかける夜の話'],
+    'スパダリ×クーデレ': ['受けが「べ、別にあなたが心配だったわけじゃ」と言いながら差し出す差し入れを、攻めが丁寧に受け取る話', '完璧な攻めがクーデレ受けの不意打ちの優しさに初めて動揺する、そんな話'],
+    'スパダリ×素直': ['「あなたのことが好きです」という素直な告白に、初めて言葉に詰まった攻めの話', '受けの率直な言葉が攻めの仮面を一枚ずつ剥がしていく、そんな話'],
+    '執着×強気': ['逃げれば逃げるほど近づいてくる攻めと、戦い続ける受けが、ある夜停戦する、そんな話', '「嫌いだ」と言いながら攻めの手を掴んで離さない受けの話'],
+    '執着×健気': ['受けがずっと微笑んで耐えていたことを、攻めだけが気づいていた話', '「もう諦めてください」と泣く受けに攻めが「諦め方を知らない」と言う、そんな話'],
+    '執着×無自覚': ['受けが「なんで私ばかり」と困惑している間、攻めはその答えをずっと胸に抱えている話', '無自覚に攻めの全てを揺さぶり続ける受けが、ある日「もしかして迷惑でしたか」と問う夜の話'],
+    '執着×クーデレ': ['クーデレな受けの「……好き」という呟きを、攻めだけが聞いていた夜の話', '「離れろ」と言いながら攻めの腕の中で眠ってしまった受けの話'],
+    '執着×素直': ['「好きです」と言い続ける受けに攻めが初めて本音で応える夜の話', '全てを曝け出す受けの前で、執着し続けた攻めが初めて怖くなる話'],
+    '不器用×強気': ['謝れない攻めが代わりに差し出したものが、受けには全部伝わっていた話', '喧嘩した翌日、何事もなかったように隣に座ってくる攻めに受けが「謝れよ」と言う話'],
+    '不器用×健気': ['伝えたいのに言葉にならなくて、気づいたら手を握っていた夜の話', '「うまく言えないけど、でもお前のことだけは」と言いかけて止まる攻めの話'],
+    '不器用×無自覚': ['受けには伝わらないのに、攻めの全部が受けに向いているとは周りには筒抜けな話', '「え、もしかして私のこと？」と無自覚受けがやっと気づく瞬間の話'],
+    '不器用×クーデレ': ['不器用な攻めとクーデレな受けの、言葉より行動が先に出るふたりの夜の話', '両方とも素直じゃないせいで大事なことがすれ違いかけた夜、救ったのは一杯のコーヒーだった話'],
+    '不器用×素直': ['真っ直ぐな受けの言葉に攻めがうまく返せなくて、でもその顔が受けには全部わかる、そんな話', '「好きだよ」とだけ言ってくれる受けに、攻めがやっと「俺も」と返せた夜の話'],
+  },
+  'ファンタジー': {
+    'ワンコ×強気': ['命令で傍に置かれたはずの従者が、気づいたら自分を守るために剣を抜いていた夜の話', '契約で繋がれたふたりが、その魔法が解けた日に初めて選択する話'],
+    'ワンコ×健気': ['呪いで人の言葉を話せない受けに、攻めだけが最初から語りかけ続けた話', '世界が滅びそうな夜、ただ傍にいることを選んだふたりの話'],
+    'ワンコ×無自覚': ['魔力を無意識に垂れ流す受けに引き寄せられ続ける攻めの話', '「これって魔法？」と首を傾げる受けの瞳に映る自分を見た夜の話'],
+    '冷酷×強気': ['百年戦い続けた宿敵ふたりが、最後の夜に剣を置く話', '「殺してみろ」と言った受けに攻めが「できない」と初めて認める話'],
+    '冷酷×健気': ['魔王と聖女が、互いを滅ぼすはずの夜に、ただ星を見上げた話', '呪いより深く刻まれた名前を、攻めはずっと声に出せずにいた話'],
+    '冷酷×無自覚': ['勇者に「この世界で一番危険な存在」と言われたのが受けだと知る夜の話', '無自覚に魔王の心を揺さぶり続けた旅人の話'],
+    '執着×強気': ['逃げ出した王女と追い続けた騎士が、国境の手前で止まる話', '「お前だけは渡さない」という言葉が、攻めの国への宣戦布告になった夜の話'],
+    '執着×クーデレ': ['呪いで感情を表に出せない受けの「嫌いじゃない」が攻めには宝物な話', '氷の魔女と言われた受けの瞳が、攻めの前でだけ溶ける夜の話'],
+    'スパダリ×強気': ['最強の騎士団長が唯一命令を聞かない部下に頭を抱える話', '「負けは認める。だが諦めはしない」と受けが言った決闘の後の夜の話'],
+    '不器用×健気': ['言葉を持たない精霊と、声でしか話せない詩人のふたりの話', '贈り物の渡し方を知らない騎士が花を背中で差し出す、そんな話'],
+  },
+  'SF': {
+    'ワンコ×強気': ['AIだった攻めが「感情」を学習した最初の瞬間の話', '宇宙船の中で二人きり、通信が途絶えた夜の話'],
+    '冷酷×健気': ['記憶を消される前夜、攻めが受けの名前だけは残そうとした話', '感情回路を持たないはずのアンドロイドが、ひとりの人間のためだけに嘘をついた話'],
+    '冷酷×強気': ['敵の艦に乗り込んで、旧友だった相手に銃を向けた夜の話', '「次に会ったら敵同士だ」と言ったはずのふたりの最後の交信の話'],
+    'スパダリ×無自覚': ['宇宙最強の交渉人が唯一交渉できない相手の話', '「なぜそんなに私のことを」と問う受けに攻めが初めて答えに詰まる話'],
+    '執着×クーデレ': ['クローンとして生まれた受けが「個」を持った瞬間を攻めだけが知っている話', 'タイムループの中で何度も受けに会いに行く攻めの話'],
+    '不器用×素直': ['「好きです」という言葉を翻訳機が正しく訳せなかった夜の話', '星図の中に受けへのメッセージを隠し続けた攻めの話'],
+  },
+  '学園': {
+    'ワンコ×強気': ['後輩の攻めが先輩の受けに部活で認められようと奮闘する話', 'クラスで一番目立つ受けに懲りずに話しかけ続ける攻めの話'],
+    '冷酷×健気': ['誰にも心を開かなかった生徒会長が、転校生の笑顔に揺らぐ話', '「友達を作る気はない」と言った攻めに受けが毎日お弁当を差し入れる話'],
+    'スパダリ×強気': ['全部完璧な同期に負けたくない受けと、その執念を密かに好ましく思う攻めの話', '文化祭の準備で衝突し続けたライバルが、最後の夜に本音を話す話'],
+    '執着×無自覚': ['ずっと受けのことを見ていた同級生の視線に受けがやっと気づく卒業前の話', '「なんで私のことそんなに知ってるの」と受けが気づいた日の話'],
+    '不器用×クーデレ': ['不器用な告白と、クーデレな返事と、教室に残ったふたりの放課後の話', '部室でふたりきりになるたびにそっぽを向くくせに帰ろうとしない受けの話'],
+    '不器用×素直': ['消しゴムを返せないまま一年が過ぎた男の話', 'ラブレターの代わりにノートの端っこに書いた答えが受けに届いた話'],
+  },
+};
+
+// Fallback situations
+const FALLBACK = [
+  'ふたりが初めて「同じ夢を見た」と知った夜の話',
+  'どちらかが「先に好きになった方が負け」というゲームを始めた話',
+  '傘が一本しかなかった帰り道の話',
+  '「嫌いだ」の言い方を間違えたせいで、全部変わってしまった夜の話',
+  'ずっと言えなかった「ありがとう」をやっと伝えられた朝の話',
+];
+
+function getRandom(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function resolve(id, pool) {
+  const val = document.getElementById(id).value;
+  return val === 'RANDOM' ? getRandom(pool) : val;
+}
+
+const loadingMessages = ['縁を紡いでいる…', '運命の糸を手繰っている…', '感情を言語化している…', 'ふたりの距離を測っている…'];
+let loadInterval;
+
+function runGacha() {
+  const world = resolve('world', WORLDS);
+  const seme = resolve('seme', SEME_TYPES);
+  const uke = resolve('uke', UKE_TYPES);
+  const attr = document.querySelector('input[name="attr"]:checked').value;
+
+  // Show loading
+  document.getElementById('result-section').style.display = 'none';
+  document.getElementById('loading-section').style.display = 'flex';
+  let msgIdx = 0;
+  loadInterval = setInterval(() => {
+    msgIdx = (msgIdx + 1) % loadingMessages.length;
+    document.getElementById('loading-text').textContent = loadingMessages[msgIdx];
+  }, 700);
+
+  setTimeout(() => {
+    clearInterval(loadInterval);
+    document.getElementById('loading-section').style.display = 'none';
+    showResult(world, seme, uke, attr);
+  }, 2200);
+}
+
+function showResult(world, seme, uke, attr) {
+  // Find situation
+  const key = `${seme}×${uke}`;
+  const worldSits = SITUATIONS[world] || {};
+  let sit = null;
+  if (worldSits[key] && worldSits[key].length > 0) {
+    sit = getRandom(worldSits[key]);
+  } else {
+    // Try any world
+    for (const w of WORLDS) {
+      if (SITUATIONS[w][key] && SITUATIONS[w][key].length > 0) {
+        sit = getRandom(SITUATIONS[w][key]);
+        break;
+      }
+    }
+    if (!sit) sit = getRandom(FALLBACK);
+  }
+
+  document.getElementById('result-tags').textContent = `#${world} × #${seme}攻め × #${uke}受け`;
+  document.getElementById('result-text').textContent = `【${world}】を舞台に、【${seme}】な攻め×【${uke}】な受けが、${sit}`;
+
+  // Amazon
+  const isIllust = attr === 'illust';
+  document.getElementById('amazon-heading').textContent = isIllust ? '— このシチュを描き切るための神資料 —' : '— 推しの感情を言語化するための神資料 —';
+
+  const keywords = isIllust
+    ? ['BL ポーズ集', '背景カタログ', 'ふたり ポーズ集']
+    : ['感情類語辞典', '性格類語辞典', '場面設定 類語'];
+
+  const labels = isIllust
+    ? ['BL向けポーズ集', '背景カタログ集', 'ふたり用ポーズ集']
+    : ['感情類語辞典', '性格類語辞典', '場面設定類語辞典'];
+
+  const descs = isIllust
+    ? ['構図に迷ったら即参照。感情が伝わるポーズを。', 'このシチュの舞台を細部まで描ける資料。', '密着・距離感・手の合わせ方まで網羅。']
+    : ['感情を多角的に言語化。情感豊かな文章に。', 'キャラの言動の根っこを言語化する辞典。', 'シーンの空気感を言葉で構築するために。'];
+
+  const linksEl = document.getElementById('amazon-links');
+  linksEl.innerHTML = '';
+  keywords.forEach((kw, i) => {
+    const url = `https://www.amazon.co.jp/s?k=${encodeURIComponent(kw)}&tag=otaku093-22`;
+    const a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.className = 'amazon-card p-4 rounded';
+    a.innerHTML = `
+      <div class="flex items-start gap-3">
+        <span style="font-size:1.2rem">📚</span>
+        <div>
+          <p class="serif font-semibold text-sm mb-1">${labels[i]}</p>
+          <p class="text-xs" style="color:var(--dust)">${descs[i]}</p>
+          <p class="text-xs mt-2" style="color:var(--aurora-1);opacity:0.8">Amazon で探す →</p>
+        </div>
+      </div>
+    `;
+    linksEl.appendChild(a);
+  });
+
+  document.getElementById('result-section').style.display = 'block';
+  document.getElementById('result-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function shareToX() {
+  const text = document.getElementById('result-text').textContent;
+  const tags = document.getElementById('result-tags').textContent.replace(/ × /g, ' ');
+  const tweetText = `${text}\n\n${tags} #推しカプ錬成炉\n`;
+  const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(location.href)}`;
+  window.open(url, '_blank', 'noopener');
+}
+</script>
+
+</body>
+</html>
