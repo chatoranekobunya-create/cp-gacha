@@ -6,13 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>推しカプ シチュエーション錬成炉</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    corePlugins: {
-      preflight: false
-    }
-  }
-</script>
 <meta name="theme-color" content="#06080f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,15 +43,13 @@ background: linear-gradient(90deg, transparent, #7fffd4, #b088f9, #f472b6, trans
 
 - { box-sizing: border-box; margin: 0; padding: 0; }
 
-html {
+html, html body {
 background-color: #06080f !important;
+color: #e8eef5 !important;
 }
 
 body {
 font-family: ‘Noto Serif JP’, serif;
-background-color: #06080f !important;
-background: #06080f !important;
-color: #e8eef5 !important;
 min-height: 100vh;
 overflow-x: hidden;
 }
@@ -143,44 +134,21 @@ background: rgba(127,255,212,0.04);
 
 /* Main button */
 .gacha-btn {
-background: transparent;
+background: linear-gradient(90deg, #7fffd4, #b088f9, #f472b6);
 border: none;
-color: var(–ink);
+color: #06080f;
 font-family: ‘Shippori Mincho’, serif;
 font-size: 1.1rem;
 font-weight: 700;
-letter-spacing: 0.2em;
+letter-spacing: 0.15em;
 padding: 1rem 2rem;
 width: 100%;
 cursor: pointer;
-transition: all 0.3s;
+transition: opacity 0.2s, transform 0.1s;
 position: relative;
-overflow: hidden;
 }
-.gacha-btn::before {
-content: ‘’;
-position: absolute;
-inset: 0;
-background: linear-gradient(90deg, var(–aurora-1), var(–aurora-2), var(–aurora-3), var(–aurora-4), var(–aurora-1));
-background-size: 300% 100%;
-animation: aurora-shift 3s ease infinite;
-z-index: 0;
-transition: opacity 0.3s;
-}
-.gacha-btn::after {
-content: ‘’;
-position: absolute;
-inset: 0;
-background: linear-gradient(90deg, var(–aurora-1), var(–aurora-2), var(–aurora-3), var(–aurora-4), var(–aurora-1));
-background-size: 300% 100%;
-animation: aurora-shift 3s ease infinite;
-filter: blur(12px);
-opacity: 0;
-z-index: -1;
-transition: opacity 0.3s;
-}
-.gacha-btn:hover::after { opacity: 0.6; }
-.gacha-btn span { position: relative; z-index: 1; color: #06080f; }
+.gacha-btn:hover { opacity: 0.85; }
+.gacha-btn span { color: #06080f; font-weight: 700; }
 .gacha-btn:active { transform: scale(0.98); }
 
 /* Loading animation */
@@ -281,10 +249,11 @@ margin: 0 auto;
 }
 
 .section-label {
-font-size: 0.7rem;
-letter-spacing: 0.12em;
+font-size: 0.75rem;
+letter-spacing: 0.08em;
 color: #7fffd4;
-display: inline-block;
+display: block;
+font-family: ‘Noto Serif JP’, serif;
 }
 
 #result-section { display: none; }
@@ -397,7 +366,7 @@ text-shadow: 0 0 30px rgba(127,255,212,0.4), 0 0 60px rgba(176,136,249,0.2);
 
   <section id="loading-section" class="flex flex-col items-center justify-center py-16 gap-6">
     <div class="loading-ring w-16 h-16"></div>
-    <p class="serif text-sm tracking-widest section-label" id="loading-text">縁を紡いでいる…</p>
+    <p class="serif text-sm" style="color:#7fffd4;letter-spacing:0.05em;" id="loading-text">縁を紡いでいる…</p>
   </section>
 
   <!-- Result -->
