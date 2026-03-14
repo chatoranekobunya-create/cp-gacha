@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -23,265 +22,263 @@
     --mist: #d8e3e8;
   }
 
-@keyframes aurora-shift {
-0%   { background-position: 0% 50%; }
-50%  { background-position: 100% 50%; }
-100% { background-position: 0% 50%; }
-}
+  @keyframes aurora-shift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 
-.aurora-text {
-color: #7fffd4;
-}
+  .aurora-text {
+    color: #7fffd4;
+  }
 
-.aurora-border {
-border-color: #7fffd4;
-}
+  .aurora-border {
+    border-color: #7fffd4;
+  }
 
-.aurora-line {
-background: linear-gradient(90deg, transparent, #7fffd4, #b088f9, #f472b6, transparent);
-}
+  .aurora-line {
+    background: linear-gradient(90deg, transparent, #7fffd4, #b088f9, #f472b6, transparent);
+  }
 
-- { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, html body {
-background-color: #06080f !important;
-color: #e8eef5 !important;
-}
+  html, html body {
+    background-color: #06080f !important;
+    color: #e8eef5 !important;
+  }
 
-body {
-font-family: ‘Noto Serif JP’, serif;
-min-height: 100vh;
-overflow-x: hidden;
-}
+  body {
+    font-family: 'Noto Serif JP', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-/* Noise texture overlay */
-body::before {
-content: ‘’;
-position: fixed;
-inset: 0;
-background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘noise’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23noise)’ opacity=‘0.04’/%3E%3C/svg%3E”);
-pointer-events: none;
-z-index: 0;
-opacity: 0.6;
-}
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
 
-.serif { font-family: ‘Shippori Mincho’, serif; }
+  .serif { font-family: 'Shippori Mincho', serif; }
 
-/* Header */
-.header-deco {
-position: relative;
-border-top: none;
-border-bottom: none;
-}
-.header-deco-line {
-height: 1px;
-background: linear-gradient(90deg, transparent, var(–aurora-1), var(–aurora-2), var(–aurora-3), var(–aurora-4), transparent);
-background-size: 200% 100%;
-animation: aurora-shift 4s ease infinite;
-}
+  /* Header */
+  .header-deco {
+    position: relative;
+    border-top: none;
+    border-bottom: none;
+  }
+  .header-deco-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--aurora-1), var(--aurora-2), var(--aurora-3), var(--aurora-4), transparent);
+    background-size: 200% 100%;
+    animation: aurora-shift 4s ease infinite;
+  }
 
-/* Select styling */
-.custom-select {
--webkit-appearance: none;
-appearance: none;
-background-color: rgba(255,255,255,0.03);
-background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘12’ viewBox=‘0 0 12 12’%3E%3Cpath fill=’%237fffd4’ d=‘M6 8L1 3h10z’/%3E%3C/svg%3E”);
-background-repeat: no-repeat;
-background-position: right 1rem center;
-border: 1px solid rgba(127,255,212,0.2);
-color: #e8eef5 !important;
-font-family: ‘Noto Serif JP’, serif;
-font-size: 0.9rem;
-padding: 0.7rem 2.5rem 0.7rem 1rem;
-width: 100%;
-cursor: pointer;
-transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
-}
-.custom-select:focus {
-outline: none;
-border-color: rgba(176,136,249,0.6);
-box-shadow: 0 0 12px rgba(176,136,249,0.15);
-background-color: rgba(176,136,249,0.04);
-}
-.custom-select option { background: #10121e; color: #e8eef5; }
+  /* Select styling */
+  .custom-select {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: rgba(255,255,255,0.03);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237fffd4' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    border: 1px solid rgba(127,255,212,0.2);
+    color: #e8eef5 !important;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.9rem;
+    padding: 0.7rem 2.5rem 0.7rem 1rem;
+    width: 100%;
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+  }
+  .custom-select:focus {
+    outline: none;
+    border-color: rgba(176,136,249,0.6);
+    box-shadow: 0 0 12px rgba(176,136,249,0.15);
+    background-color: rgba(176,136,249,0.04);
+  }
+  .custom-select option { background: #10121e; color: #e8eef5; }
 
-/* Radio buttons */
-.attr-radio { display: none; }
-.attr-label {
-display: flex;
-align-items: center;
-justify-content: center;
-padding: 0.75rem 1.5rem;
-border: 1px solid rgba(127,255,212,0.2);
-cursor: pointer;
-transition: all 0.3s;
-font-size: 0.95rem;
-letter-spacing: 0.05em;
-position: relative;
-overflow: hidden;
-}
-.attr-radio:checked + .attr-label {
-background: linear-gradient(135deg, rgba(127,255,212,0.15), rgba(176,136,249,0.15), rgba(244,114,182,0.15));
-border-color: transparent;
-font-weight: 600;
-box-shadow: inset 0 0 0 1px rgba(127,255,212,0.4), 0 0 20px rgba(127,255,212,0.1);
-color: #7fffd4;
-}
-.attr-label:hover {
-border-color: rgba(127,255,212,0.4);
-background: rgba(127,255,212,0.04);
-}
+  /* Radio buttons */
+  .attr-radio { display: none; }
+  .attr-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid rgba(127,255,212,0.2);
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    position: relative;
+    overflow: hidden;
+  }
+  .attr-radio:checked + .attr-label {
+    background: linear-gradient(135deg, rgba(127,255,212,0.15), rgba(176,136,249,0.15), rgba(244,114,182,0.15));
+    border-color: transparent;
+    font-weight: 600;
+    box-shadow: inset 0 0 0 1px rgba(127,255,212,0.4), 0 0 20px rgba(127,255,212,0.1);
+    color: #7fffd4;
+  }
+  .attr-label:hover {
+    border-color: rgba(127,255,212,0.4);
+    background: rgba(127,255,212,0.04);
+  }
 
-/* Main button */
-.gacha-btn {
-background: linear-gradient(90deg, #7fffd4, #b088f9, #f472b6);
-border: none;
-color: #06080f;
-font-family: ‘Shippori Mincho’, serif;
-font-size: 1.1rem;
-font-weight: 700;
-letter-spacing: 0.15em;
-padding: 1rem 2rem;
-width: 100%;
-cursor: pointer;
-transition: opacity 0.2s, transform 0.1s;
-position: relative;
-}
-.gacha-btn:hover { opacity: 0.85; }
-.gacha-btn span { color: #06080f; font-weight: 700; }
-.gacha-btn:active { transform: scale(0.98); }
+  /* Main button */
+  .gacha-btn {
+    background: linear-gradient(90deg, #7fffd4, #b088f9, #f472b6);
+    border: none;
+    color: #06080f;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    padding: 1rem 2rem;
+    width: 100%;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    position: relative;
+  }
+  .gacha-btn:hover { opacity: 0.85; }
+  .gacha-btn span { color: #06080f; font-weight: 700; }
+  .gacha-btn:active { transform: scale(0.98); }
 
-/* Loading animation */
-@keyframes shimmer {
-0%, 100% { opacity: 0.3; }
-50% { opacity: 1; }
-}
-@keyframes rotateGlyph {
-from { transform: rotate(0deg); }
-to { transform: rotate(360deg); }
-}
-@keyframes fadeInUp {
-from { opacity: 0; transform: translateY(20px); }
-to { opacity: 1; transform: translateY(0); }
-}
-@keyframes drawLine {
-from { transform: scaleX(0); }
-to { transform: scaleX(1); }
-}
+  /* Loading animation */
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+  @keyframes rotateGlyph {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes drawLine {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
 
-.loading-ring {
-border: 1px solid rgba(127,255,212,0.15);
-border-top-color: var(–aurora-1);
-border-right-color: var(–aurora-2);
-border-radius: 50%;
-animation: rotateGlyph 1s linear infinite;
-box-shadow: 0 0 20px rgba(127,255,212,0.15);
-}
+  .loading-ring {
+    border: 1px solid rgba(127,255,212,0.15);
+    border-top-color: var(--aurora-1);
+    border-right-color: var(--aurora-2);
+    border-radius: 50%;
+    animation: rotateGlyph 1s linear infinite;
+    box-shadow: 0 0 20px rgba(127,255,212,0.15);
+  }
 
-.result-appear { animation: fadeInUp 0.6s ease forwards; }
-.line-appear {
-transform-origin: left;
-animation: drawLine 0.8s ease forwards;
-}
+  .result-appear { animation: fadeInUp 0.6s ease forwards; }
+  .line-appear { 
+    transform-origin: left;
+    animation: drawLine 0.8s ease forwards;
+  }
 
-/* Result card */
-.result-card {
-background: rgba(255,255,255,0.02);
-border: 1px solid rgba(127,255,212,0.15);
-position: relative;
-}
-.result-card::before {
-content: ‘’;
-position: absolute;
-top: 0; left: 0;
-width: 40px; height: 40px;
-border-top: 2px solid var(–aurora-1);
-border-left: 2px solid var(–aurora-1);
-}
-.result-card::after {
-content: ‘’;
-position: absolute;
-bottom: 0; right: 0;
-width: 40px; height: 40px;
-border-bottom: 2px solid var(–aurora-3);
-border-right: 2px solid var(–aurora-3);
-}
+  /* Result card */
+  .result-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(127,255,212,0.15);
+    position: relative;
+  }
+  .result-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 40px; height: 40px;
+    border-top: 2px solid var(--aurora-1);
+    border-left: 2px solid var(--aurora-1);
+  }
+  .result-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 40px; height: 40px;
+    border-bottom: 2px solid var(--aurora-3);
+    border-right: 2px solid var(--aurora-3);
+  }
 
-/* Amazon card */
-.amazon-card {
-background: rgba(127,255,212,0.03);
-border: 1px solid rgba(127,255,212,0.15);
-transition: all 0.25s;
-text-decoration: none;
-display: block;
-}
-.amazon-card:hover {
-background: rgba(176,136,249,0.07);
-border-color: rgba(176,136,249,0.35);
-transform: translateY(-2px);
-box-shadow: 0 8px 24px rgba(176,136,249,0.1);
-}
+  /* Amazon card */
+  .amazon-card {
+    background: rgba(127,255,212,0.03);
+    border: 1px solid rgba(127,255,212,0.15);
+    transition: all 0.25s;
+    text-decoration: none;
+    display: block;
+  }
+  .amazon-card:hover {
+    background: rgba(176,136,249,0.07);
+    border-color: rgba(176,136,249,0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(176,136,249,0.1);
+  }
 
-/* X share button */
-.x-btn {
-background: transparent;
-border: 1px solid rgba(255,255,255,0.15);
-color: var(–paper);
-font-family: ‘Noto Serif JP’, serif;
-font-size: 0.85rem;
-padding: 0.6rem 1.2rem;
-cursor: pointer;
-transition: all 0.2s;
-letter-spacing: 0.05em;
-}
-.x-btn:hover {
-border-color: rgba(127,255,212,0.4);
-background: rgba(127,255,212,0.05);
-color: var(–aurora-1);
-}
+  /* X share button */
+  .x-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--paper);
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.85rem;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+  .x-btn:hover {
+    border-color: rgba(127,255,212,0.4);
+    background: rgba(127,255,212,0.05);
+    color: var(--aurora-1);
+  }
 
-.divider {
-height: 1px;
-background: linear-gradient(to right, transparent, var(–aurora-1), var(–aurora-2), var(–aurora-3), transparent);
-background-size: 200% 100%;
-animation: aurora-shift 5s ease infinite;
-margin: 0 auto;
-}
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--aurora-1), var(--aurora-2), var(--aurora-3), transparent);
+    background-size: 200% 100%;
+    animation: aurora-shift 5s ease infinite;
+    margin: 0 auto;
+  }
 
-.section-label {
-font-size: 0.75rem;
-letter-spacing: 0.08em;
-color: #7fffd4;
-display: block;
-font-family: ‘Noto Serif JP’, serif;
-}
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: #7fffd4;
+    display: block;
+    font-family: 'Noto Serif JP', serif;
+  }
 
-#result-section { display: none; }
-#loading-section { display: none; }
+  #result-section { display: none; }
+  #loading-section { display: none; }
 
-.kanji-deco {
-font-size: 8rem;
-font-weight: 900;
-position: absolute;
-font-family: ‘Shippori Mincho’, serif;
-pointer-events: none;
-line-height: 1;
-user-select: none;
-color: #7fffd4;
-opacity: 0.05;
-}
+  .kanji-deco {
+    font-size: 8rem;
+    font-weight: 900;
+    position: absolute;
+    font-family: 'Shippori Mincho', serif;
+    pointer-events: none;
+    line-height: 1;
+    user-select: none;
+    color: #7fffd4;
+    opacity: 0.05;
+  }
 
-.glow-text {
-text-shadow: 0 0 30px rgba(127,255,212,0.4), 0 0 60px rgba(176,136,249,0.2);
-}
+  .glow-text {
+    text-shadow: 0 0 30px rgba(127,255,212,0.4), 0 0 60px rgba(176,136,249,0.2);
+  }
 </style>
-
 </head>
 <body style="background-color:#06080f;color:#e8eef5;">
 <div class="relative z-10 max-w-2xl mx-auto px-4 py-8 min-h-screen flex flex-col">
 
   <!-- Header -->
-
   <header class="mb-10 text-center relative overflow-hidden">
     <div class="kanji-deco" style="top:-1rem;right:-2rem;opacity:0.05;">縁</div>
     <p class="section-label mb-3">Situation Generator for Doujin Creators</p>
@@ -293,114 +290,104 @@ text-shadow: 0 0 30px rgba(127,255,212,0.4), 0 0 60px rgba(176,136,249,0.2);
       <div class="header-deco-line mt-3"></div>
     </div>
     <p class="text-xs tracking-widest" style="color:var(--dust)">あなたの「好き」を、物語に変える</p>
+    <p class="text-xs mt-2" style="color:var(--dust);font-size:0.65rem;opacity:0.7;">Amazonのアソシエイトとして、オタクの便利ツール開発場は適格販売により収入を得ています。</p>
   </header>
 
   <!-- Form -->
-
   <section class="mb-8 space-y-6">
     <p class="section-label">— 設定 —</p>
 
-```
-<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-  <!-- 世界観 -->
-  <div>
-    <label class="block text-xs tracking-widest mb-2" style="color:var(--dust)">◇ 世界観</label>
-    <select id="world" class="custom-select">
-      <option value="現代">現代</option>
-      <option value="ファンタジー">ファンタジー</option>
-      <option value="SF">SF</option>
-      <option value="学園">学園</option>
-      <option value="RANDOM">完全ランダム（おまかせ）</option>
-    </select>
-  </div>
-  <!-- 攻め -->
-  <div>
-    <label class="block text-xs tracking-widest mb-2" style="color:var(--dust)">◇ 攻めの性格</label>
-    <select id="seme" class="custom-select">
-      <option value="ワンコ">ワンコ</option>
-      <option value="冷酷">冷酷</option>
-      <option value="スパダリ">スパダリ</option>
-      <option value="執着">執着</option>
-      <option value="不器用">不器用</option>
-      <option value="RANDOM">完全ランダム</option>
-    </select>
-  </div>
-  <!-- 受け -->
-  <div>
-    <label class="block text-xs tracking-widest mb-2" style="color:var(--dust)">◇ 受けの性格</label>
-    <select id="uke" class="custom-select">
-      <option value="強気">強気</option>
-      <option value="健気">健気</option>
-      <option value="無自覚">無自覚</option>
-      <option value="クーデレ">クーデレ</option>
-      <option value="素直">素直</option>
-      <option value="RANDOM">完全ランダム</option>
-    </select>
-  </div>
-</div>
-
-<!-- 属性 -->
-<div>
-  <p class="text-xs tracking-widest mb-3" style="color:var(--dust)">◇ あなたの属性（必須）</p>
-  <div class="grid grid-cols-2 gap-3">
-    <div>
-      <input type="radio" name="attr" id="attr-illust" value="illust" class="attr-radio" checked>
-      <label for="attr-illust" class="attr-label serif">🎨 絵描き</label>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <!-- 世界観 -->
+      <div>
+        <label class="block text-xs tracking-widest mb-2" style="color:var(--dust)">◇ 世界観</label>
+        <select id="world" class="custom-select">
+          <option value="現代">現代</option>
+          <option value="ファンタジー">ファンタジー</option>
+          <option value="SF">SF</option>
+          <option value="学園">学園</option>
+          <option value="RANDOM">完全ランダム（おまかせ）</option>
+        </select>
+      </div>
+      <!-- 攻め -->
+      <div>
+        <label class="block text-xs tracking-widest mb-2" style="color:var(--dust)">◇ 攻めの性格</label>
+        <select id="seme" class="custom-select">
+          <option value="ワンコ">ワンコ</option>
+          <option value="冷酷">冷酷</option>
+          <option value="スパダリ">スパダリ</option>
+          <option value="執着">執着</option>
+          <option value="不器用">不器用</option>
+          <option value="RANDOM">完全ランダム</option>
+        </select>
+      </div>
+      <!-- 受け -->
+      <div>
+        <label class="block text-xs tracking-widest mb-2" style="color:var(--dust)">◇ 受けの性格</label>
+        <select id="uke" class="custom-select">
+          <option value="強気">強気</option>
+          <option value="健気">健気</option>
+          <option value="無自覚">無自覚</option>
+          <option value="クーデレ">クーデレ</option>
+          <option value="素直">素直</option>
+          <option value="RANDOM">完全ランダム</option>
+        </select>
+      </div>
     </div>
+
+    <!-- 属性 -->
     <div>
-      <input type="radio" name="attr" id="attr-writer" value="writer" class="attr-radio">
-      <label for="attr-writer" class="attr-label serif">✍️ 字書き</label>
+      <p class="text-xs tracking-widest mb-3" style="color:var(--dust)">◇ あなたの属性（必須）</p>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <input type="radio" name="attr" id="attr-illust" value="illust" class="attr-radio" checked>
+          <label for="attr-illust" class="attr-label serif">🎨 絵描き</label>
+        </div>
+        <div>
+          <input type="radio" name="attr" id="attr-writer" value="writer" class="attr-radio">
+          <label for="attr-writer" class="attr-label serif">✍️ 字書き</label>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<!-- Button -->
-<button class="gacha-btn" onclick="runGacha()">
-  <span>この条件でシチュエーションを錬成する</span>
-</button>
-```
-
+    <!-- Button -->
+    <button class="gacha-btn" onclick="runGacha()">
+      <span>この条件でシチュエーションを錬成する</span>
+    </button>
   </section>
 
   <!-- Loading -->
-
   <section id="loading-section" class="flex flex-col items-center justify-center py-16 gap-6">
     <div class="loading-ring w-16 h-16"></div>
     <p class="serif text-sm" style="color:#7fffd4;letter-spacing:0.05em;" id="loading-text">縁を紡いでいる…</p>
   </section>
 
   <!-- Result -->
-
   <section id="result-section" class="space-y-6">
     <div class="divider w-full"></div>
 
-```
-<!-- Situation Card -->
-<div class="result-card p-8 relative result-appear">
-  <p class="section-label mb-4">— 錬成されたシチュエーション —</p>
-  <p id="result-tags" class="aurora-text text-xs tracking-widest mb-4"></p>
-  <p id="result-text" class="serif text-base leading-loose" style="line-height:2.2em"></p>
-</div>
+    <!-- Situation Card -->
+    <div class="result-card p-8 relative result-appear">
+      <p class="section-label mb-4">— 錬成されたシチュエーション —</p>
+      <p id="result-tags" class="aurora-text text-xs tracking-widest mb-4"></p>
+      <p id="result-text" class="serif text-base leading-loose" style="line-height:2.2em"></p>
+    </div>
 
-<!-- Share button -->
-<div class="text-right">
-  <button class="x-btn" onclick="shareToX()">🐦 Xでシェアする</button>
-</div>
+    <!-- Share button -->
+    <div class="text-right">
+      <button class="x-btn" onclick="shareToX()">🐦 Xでシェアする</button>
+    </div>
 
-<div class="divider w-full"></div>
+    <div class="divider w-full"></div>
 
-<!-- Amazon section -->
-<div id="amazon-section" class="space-y-4 result-appear" style="animation-delay:0.3s">
-  <p class="section-label" id="amazon-heading"></p>
-  <div id="amazon-links" class="grid grid-cols-1 gap-3"></div>
-  <p class="text-xs" style="color:var(--dust)">※ Amazon アソシエイトリンクを含みます</p>
-</div>
-```
-
+    <!-- Amazon section -->
+    <div id="amazon-section" class="space-y-4 result-appear" style="animation-delay:0.3s">
+      <p class="section-label" id="amazon-heading"></p>
+      <div id="amazon-links" class="grid grid-cols-1 gap-3"></div>
+    </div>
   </section>
 
   <!-- Footer -->
-
   <footer class="mt-auto pt-12 text-center">
     <div class="divider w-24 mb-6"></div>
     <p class="text-xs tracking-widest" style="color:var(--dust)">推しカプ錬成炉 ◆ for Doujin Creators</p>
@@ -586,6 +573,5 @@ function shareToX() {
   window.open(url, '_blank', 'noopener');
 }
 </script>
-
 </body>
 </html>
